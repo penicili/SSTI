@@ -4,8 +4,8 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 COPY . /app
 
-# Ensure flag directory exists and copy flag if present
-RUN mkdir -p /flag || true
+# Make entrypoint script executable
+RUN chmod +x /app/entrypoint.sh
 
 EXPOSE 5000
-CMD ["python", "app.py"]
+ENTRYPOINT ["/app/entrypoint.sh"]
