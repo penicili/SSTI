@@ -1,5 +1,4 @@
 #!/bin/sh
-
 # Ensure flag directory exists
 mkdir -p /flag
 

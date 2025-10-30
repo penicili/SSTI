@@ -19,17 +19,6 @@ TEMPLATE = '''
 '''
 
 
-def read_flag():
-    # read flag from known path inside container
-    flag_path = os.path.join('/', 'flag', 'flag.txt')
-    # fall back to local folder when running outside container
-    if not os.path.exists(flag_path):
-        flag_path = os.path.join(os.getcwd(), 'flag', 'flag.txt')
-    try:
-        with open(flag_path, 'r', encoding='utf-8') as f:
-            return f.read()
-    except Exception:
-        return 'FLAG_NOT_FOUND'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -40,7 +29,6 @@ def index():
         # render the user-provided template inside a context that includes flag
         # intentionally include the flag in the globals for exploitation
         context = {
-            'flag': read_flag(),
             'os': os,
         }
         try:
